@@ -1,8 +1,10 @@
 import axios from "axios";
 import { API_URL } from "../../config";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 function Login() {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('teacher'); // Default to teacher
@@ -17,24 +19,25 @@ function Login() {
 
     const handelSubmit = async (event) => {
         event.preventDefault();
-        if(!username || !password) {
+        if (!username || !password) {
             alert("กรุณากรอกข้อมูลให้ครบถ้วน");
             return;
         }
-        try{
-            const response = await axios.post(`${API_URL}/login/${role === 'teacher' ? 't' : 'ta'}`, {
+        try {
+            const response = await axios.post(`${API_URL}/auth/${role === 'teacher' ? 't' : 'ta'}`, {
                 username,
                 password
             });
-            if(response.data.success) {
+            if (response.data.status) {
+                // console.log(response.data);
                 localStorage.setItem('token', response.data.token);
-                localStorage.setItem('role', role);
                 alert("เข้าสู่ระบบสำเร็จ");
-                window.location.href = '/';
-            }else {
+                navigate('/', { replace: true });
+                // window.location.href = '/';
+            } else {
                 alert(response.data.message || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
             }
-        }catch (error) {
+        } catch (error) {
             console.error("Login error:", error);
             if (error.response && error.response.data) {
                 alert(error.response.data.message || "เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
@@ -43,6 +46,13 @@ function Login() {
             }
         }
     }
+
+    useEffect(() => {
+        const isToken = localStorage.getItem('token');
+        if(isToken) {
+            return navigate('/', { replace: true })
+        }
+    },[])
 
     return (
         <div className="relative w-screen h-screen bg-gray-100 flex items-center justify-center">
@@ -97,8 +107,8 @@ function Login() {
                         >
                             Login
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-</svg>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                            </svg>
 
                         </button>
                     </form>
