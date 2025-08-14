@@ -47,28 +47,25 @@ function Login() {
         }
     }
 
-    useEffect(() => {
-        const isToken = localStorage.getItem('token');
-        if(isToken) {
-            return navigate('/', { replace: true })
-        }
-    },[])
+    // useEffect(() => {
+    //     const isToken = localStorage.getItem('token');
+    //     if (isToken) {
+    //         return navigate('/', { replace: true })
+    //     }
+    // }, [])
 
     return (
         <div className="relative w-screen h-screen bg-gray-100 flex items-center justify-center">
             <div className="bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[468px] border border-gray-200 rounded-2xl shadow-xl">
-                <div className="px-6 pb-6">
-                    <div className="flex flex-col items-center gap-1 mb-4">
-                        <img src="/catwork.jpg" alt='catwork' className="w-32 h-32 " />
-                        <h1 className="font-medium">สวัสดี {role == 'teacher' ? 'อาจารย์' : 'อาจารย์ผู้ช่วย'}</h1>
-                    </div>
+                <div className="p-10">
+                    <h1 className="mb-2 text-gray-900 text-center font-bold text-2xl tracking-wide">Login</h1>
 
-                    <form onSubmit={handelSubmit} className="grid grid-cols-1 gap-3">
-                        <div className="grid grid-cols-1 gap-0.5">
-                            <label htmlFor="username">Username</label>
+                    <form onSubmit={handelSubmit} className="grid grid-cols-1 gap-4">
+                        <div className="grid grid-cols-1 gap-1">
+                            <label htmlFor="username" className="font-norma text-base tracking-normal">Username</label>
                             <input
-                                className="border border-gray-300 rounded-md p-1"
-                                // placeholder="Username"
+                                className="w-full border border-gray-300 rounded-lg py-1 px-2 "
+                                placeholder="Enter your username"
                                 type="text"
                                 id="username"
                                 name="username"
@@ -76,40 +73,45 @@ function Login() {
                                 required
                             />
                         </div>
-                        <div className="grid grid-cols-1 gap-0.5">
-                            <label htmlFor="password">Password</label>
+                        <div className="grid grid-cols-1 gap-1">
+                            <label htmlFor="password " className="font-norma text-base tracking-normal">Password</label>
                             <input
-                                className="border border-gray-300 rounded-md p-1"
-                                // placeholder="Password"
+                                className="w-full border border-gray-300 rounded-lg py-1 px-2"
+                                placeholder="Enter your password"
                                 type="password"
                                 id="password"
                                 name="password"
                                 onChange={(e) => handelPasswordChange(e)}
                                 required />
                         </div>
-                        <div className="grid grid-cols-1 gap-0.5">
-                            <label htmlFor="role">Role</label>
-                            <select
-                                className="border border-gray-300 rounded-md p-1"
-                                id="role"
-                                name="role"
-                                value={role}
-                                onChange={(e) => setRole(e.target.value)}
-                            >
-                                <option value="teacher">อาจารย์</option>
-                                <option value="ta">อาจารย์ผู้ช่วย</option>
-                            </select>
+                        <div className="flex items-center justify-start gap-2">
+                            <div className="flex gap-2 cursor-pointer" onClick={() => setRole('teacher')}>
+                                <div className="w-5 h-5 border border-gray-200 rounded-full relative">
+                                    {role === 'teacher' && (
+                                        <div className=" bg-gray-900 w-2.5 h-2.5 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all delay-100"></div>
+                                    )}
+
+                                </div>
+                                <span className="text-sm font-normal">Teacher</span>
+                            </div>
+                            <div className="flex gap-2 cursor-pointe" onClick={() => setRole('ta')}>
+                                <div className="w-5 h-5 border border-gray-200 rounded-full relative">
+                                    {role === 'ta' && (
+                                        <div className=" bg-gray-900 w-2.5 h-2.5 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                                    )}
+                                </div>
+                                <span className="text-sm font-normal">Teacher Assistant</span>
+                            </div>
                         </div>
-                        {/* <div>ลืมรหัสผ่าน</div> */}
+
                         <button
                             type="submit"
-                            className="flex gap-2 items-center justify-center bg-orange-300 font-semibold rounded-full w-32 text-white mt-2  mx-auto p-2.5 hover:bg-orange-400 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex gap-2 items-center justify-center cursor-pointer bg-gray-900 font-semibold rounded-full w-full text-white mt-2  mx-auto p-2.5 hover:bg-gray-950 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed "
                         >
                             Login
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                             </svg>
-
                         </button>
                     </form>
                 </div>
