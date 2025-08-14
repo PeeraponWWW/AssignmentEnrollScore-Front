@@ -54,14 +54,16 @@ function App() {
 
 
   return (
-    <div>
+    <div className="flex">
       <Navbar
         logout={logout}
         userInfo={userInfo}
         menuItems={navbarMenuItems}
       />
-
-      {/* <Outlet/> */}
+      <div className="mx-10 mt-20 md:mx-20 md:mt-10 w-full">
+        <Outlet/>
+      </div>
+      
     </div>
   );
 }

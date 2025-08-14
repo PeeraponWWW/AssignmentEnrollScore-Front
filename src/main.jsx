@@ -6,6 +6,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import Login from './pages/Login.jsx'
 import Home from './pages/Home/Home.jsx'
 import NotFound from './pages/NotFound.jsx'
+import Subject from './pages/Subject/Subject.jsx'
+import CreateSubject from './pages/Subject/CreateSubject.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -14,6 +16,8 @@ createRoot(document.getElementById('root')).render(
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path='/' element={<App />}>
         <Route path='home' element={<Home />}/>
+        <Route path='subject' element={<Subject/>}/>
+        <Route path='subject/create' element={<CreateSubject/>}/>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

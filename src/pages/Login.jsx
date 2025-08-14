@@ -7,7 +7,7 @@ function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('teacher'); // Default to teacher
+    // const [role, setRole] = useState('teacher'); // Default to teacher
 
     const handelUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -24,7 +24,7 @@ function Login() {
             return;
         }
         try {
-            const response = await axios.post(`${API_URL}/auth/${role === 'teacher' ? 't' : 'ta'}`, {
+            const response = await axios.post(`${API_URL}/auth/t`, {
                 username,
                 password
             });
@@ -47,13 +47,6 @@ function Login() {
         }
     }
 
-    // useEffect(() => {
-    //     const isToken = localStorage.getItem('token');
-    //     if (isToken) {
-    //         return navigate('/', { replace: true })
-    //     }
-    // }, [])
-
     return (
         <div className="relative w-screen h-screen bg-gray-100 flex items-center justify-center">
             <div className="bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[468px] border border-gray-200 rounded-2xl shadow-xl">
@@ -72,6 +65,7 @@ function Login() {
                                 onChange={(e) => handelUsernameChange(e)}
                                 required
                             />
+                            
                         </div>
                         <div className="grid grid-cols-1 gap-1">
                             <label htmlFor="password " className="font-norma text-base tracking-normal">Password</label>
@@ -84,29 +78,10 @@ function Login() {
                                 onChange={(e) => handelPasswordChange(e)}
                                 required />
                         </div>
-                        <div className="flex items-center justify-start gap-2">
-                            <div className="flex gap-2 cursor-pointer" onClick={() => setRole('teacher')}>
-                                <div className="w-5 h-5 border border-gray-200 rounded-full relative">
-                                    {role === 'teacher' && (
-                                        <div className=" bg-gray-900 w-2.5 h-2.5 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-all delay-100"></div>
-                                    )}
-
-                                </div>
-                                <span className="text-sm font-normal">Teacher</span>
-                            </div>
-                            <div className="flex gap-2 cursor-pointe" onClick={() => setRole('ta')}>
-                                <div className="w-5 h-5 border border-gray-200 rounded-full relative">
-                                    {role === 'ta' && (
-                                        <div className=" bg-gray-900 w-2.5 h-2.5 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-                                    )}
-                                </div>
-                                <span className="text-sm font-normal">Teacher Assistant</span>
-                            </div>
-                        </div>
-
                         <button
                             type="submit"
-                            className="flex gap-2 items-center justify-center cursor-pointer bg-gray-900 font-semibold rounded-full w-full text-white mt-2  mx-auto p-2.5 hover:bg-gray-950 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed "
+                            className="inline-flex justify-center gap-2 items-center rounded-sm border border-gray-900 bg-gray-900 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-gray-900 focus:ring-3 focus:outline-hidden"
+                        // className="flex gap-2 items-center justify-center cursor-pointer bg-gray-900 font-semibold rounded-full w-full text-white mt-2  mx-auto p-2.5 hover:bg-gray-950 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed "
                         >
                             Login
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
